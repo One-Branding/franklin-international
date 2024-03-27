@@ -1,0 +1,51 @@
+/* CSS to Hide and Show the buttons when the user clicks the loop button */
+[data-slider-element="button"][data-state="start"] [button-icon="play"] {
+  display: block;
+}
+[data-slider-element="button"][data-state="pause"] [button-icon="pause"] {
+  display: block;
+}
+
+/* Slider Arrow Classes */
+.slider-main_arrow {
+  transition: opacity 0.3s ease;
+}
+.slider-main_arrow.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Slider Slide History */
+.swiper-slide.is-slider-history {
+  opacity: 0.5;
+}
+.swiper-slide.is-slider-history.is-active {
+  opacity: 1;
+}
+.swiper-slide.is-slider-history {
+  transition: opacity 0.3s ease;
+}
+
+/* Slider bar and node classes */
+.slider-history_progress-bar-node,
+.slider-history_progress-bar {
+  transition: background-color 0.3s ease;
+}
+.swiper-slide.is-slider-history.is-active .slider-history_progress-bar-node {
+  background-color: var(--swatch--navy, #004c77);
+}
+/* .swiper-slide.is-slider-history.is-active .slider-history_progress-bar {
+  background-color: var(--swatch--navy, #004c77);
+} */
+
+/* Every other child reverse history slider flex */
+
+/* Only run this code if the browser width is less than 768 */
+@media (min-width: 768px) {
+  .swiper-slide.is-slider-history:nth-child(even) .history-slider__flex {
+    flex-direction: column-reverse;
+  }
+  .swiper-slide.is-slider-history:nth-child(even) .history-slider__image-wrap {
+    justify-content: flex-start;
+  }
+}

@@ -2,7 +2,11 @@
 window.addEventListener("load", () => {
   if (window.innerWidth > 768) {
     $(".slider-history_component").each(function (index) {
-      const progressBarInner = document.querySelector(".progress-bar__inner");
+      const progressBars = document.querySelectorAll(
+        "[data-el='progress-bar-inner']"
+      );
+      // Turn Progress bars to an Array
+      const progressBarsArray = Array.from(progressBars);
       const swiper = new Swiper($(this).find(".swiper")[0], {
         speed: 600,
         loop: false,
@@ -32,19 +36,31 @@ window.addEventListener("load", () => {
         slideActiveClass: "is-active",
         slideDuplicateActiveClass: "is-active",
         on: {
+          autoplayTimeLeft(s, time, progress) {
+            progressBarsArray.forEach((progressBar) => {
+              progressBar.style.width = "0%";
+              // only set this style if this bar is inside a .swiper-slide has the class of .is-active
+              if (
+                progressBar
+                  .closest(".swiper-slide")
+                  .classList.contains("is-active")
+              ) {
+                progressBar.style.width = 100 - 100 * progress + "%";
+              }
+              return;
+            });
+            //progressBars.style.width = 100 - 100 * progress + "%";
+          },
           init: function () {
             const sliderButton = document.querySelector(
               "[data-slider-element='button']"
             );
-            // This allows the text to be translates in Webflow
             const sliderButtonContent = sliderButton.querySelector(
               "[slider-button-text]"
             );
-            // This allows the text to be translates in Webflow
             const playButtonContent = document.querySelector(
               "[data-element='play-slideshow-text']"
             ).textContent;
-            // This allows the text to be translates in Webflow
             const pauseButtonContent = document.querySelector(
               "[data-element='pause-slideshow-text']"
             ).textContent;
